@@ -389,6 +389,12 @@ config OMAP4_PPA_CPU1_ONLINE_BUG
 
 	  If, on the other hand, you do not understand the change, leave the
 	  default as enabled.
+	
+config OMAP4_512_GPU
+	bool "Enable 512Mhz GPU clock"
+	help
+	  By default this kernel ships with 384Mhz GPU clock. With this option
+	  enabled we can compile it with 512Mhz instead of the default.
 
 endmenu
 
