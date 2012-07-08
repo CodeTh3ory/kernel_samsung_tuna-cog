@@ -159,7 +159,7 @@ static unsigned int omap_thermal_lower_speed(void)
 	unsigned int curr;
 	int i;
 
-	curr = max_thermal;
+	curr = omap_getspeed(0);
 
 	for (i = 0; freq_table[i].frequency != CPUFREQ_TABLE_END; i++)
 		if (freq_table[i].frequency > max &&
@@ -343,8 +343,8 @@ static int __cpuinit omap_cpu_init(struct cpufreq_policy *policy)
 
 	cpufreq_frequency_table_get_attr(freq_table, policy->cpu);
 
-	policy->min = 350000;
-	policy->max = 1200000;
+	policy->min = 384000;
+	policy->max = 1228000;
 	policy->cur = omap_getspeed(policy->cpu);
 
 	for (i = 0; freq_table[i].frequency != CPUFREQ_TABLE_END; i++)
@@ -363,8 +363,7 @@ static int __cpuinit omap_cpu_init(struct cpufreq_policy *policy)
 		cpumask_setall(policy->cpus);
 	}
 
-	/* FIXME: what's the actual transition time? */
-	policy->cpuinfo.transition_latency = 300 * 1000;
+	policy->cpuinfo.transition_latency = 10 * 1000;
 
 #ifdef CONFIG_CUSTOM_VOLTAGE
 	customvoltage_register_freqmutex(&omap_cpufreq_lock);
