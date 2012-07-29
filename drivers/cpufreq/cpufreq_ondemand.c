@@ -621,8 +621,8 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 			if (latency == 0)
 				latency = 1;
 			/* Bring kernel and HW constraints together */
-			min_sampling_rate = 10000;
-			dbs_tuners_ins.sampling_rate = 10000;
+			min_sampling_rate = 30000;
+			dbs_tuners_ins.sampling_rate = 30000;
 		}
 		mutex_unlock(&dbs_mutex);
 
