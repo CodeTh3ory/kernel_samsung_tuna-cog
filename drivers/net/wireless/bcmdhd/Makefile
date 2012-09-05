@@ -20,6 +20,7 @@ DHDCFLAGS = -Wall -Wstrict-prototypes -Dlinux -DBCMDRIVER                     \
 	-DWL_CFG80211_VSDB_PRIORITIZE_SCAN_REQUEST -DESCAN_RESULT_PATCH       \
 	-DNEW_COMPAT_WIRELESS -DWIFI_ACT_FRAME -DDHD_GPL -DDHD_SCHED          \
 	-DCUSTOM_OOB_GPIO_NUM=2 -DCSCAN                                       \
+	-DAMPDU_HOSTREORDER -DESCAN_RESULT_PATCH -DHT40_GO                    \
 	-Idrivers/net/wireless/bcmdhd -Idrivers/net/wireless/bcmdhd/include
 
 DHDOFILES = aiutils.o bcmsdh_sdmmc_linux.o dhd_linux.o siutils.o bcmutils.o   \
