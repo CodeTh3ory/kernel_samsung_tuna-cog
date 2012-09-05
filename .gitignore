@@ -84,3 +84,5 @@ boot.img
 buildlean.sh
 arch/arm/boot/compressed/ashldi3.S
 arch/arm/boot/compressed/piggy.xzkern
+mkboot
+zip
