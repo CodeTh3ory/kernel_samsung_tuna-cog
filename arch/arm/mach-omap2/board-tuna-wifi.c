@@ -34,7 +34,7 @@
 #include "hsmmc.h"
 #include "control.h"
 #include "mux.h"
-#include "board-tuna.h"
+//#include "board-tuna.h"
 
 #define GPIO_WLAN_PMENA		104
 #define GPIO_WLAN_IRQ		2
@@ -286,14 +286,14 @@ __setup("androidboot.macaddr=", tuna_mac_addr_setup);
 
 static int tuna_wifi_get_mac_addr(unsigned char *buf)
 {
-	int type = omap4_tuna_get_type();
+	//int type = omap4_tuna_get_type();
 	uint rand_mac;
 
-	if (type != TUNA_TYPE_TORO)
+	if (!buf)//type != TUNA_TYPE_TORO
 		return -EINVAL;
 
-	if (!buf)
-		return -EFAULT;
+	//if (!buf)
+	//	return -EFAULT;
 
 	if ((tuna_mac_addr[4] == 0) && (tuna_mac_addr[5] == 0)) {
 		srandom32((uint)jiffies);
@@ -385,8 +385,8 @@ static struct wifi_platform_data tuna_wifi_control = {
 #else
 	.mem_prealloc	= NULL,
 #endif
-	.get_mac_addr	= tuna_wifi_get_mac_addr,
-	.get_country_code = tuna_wifi_get_country_code,
+	.get_mac_addr	= NULL, //tuna_wifi_get_mac_addr,
+	.get_country_code = NULL, //tuna_wifi_get_country_code,
 };
 
 static struct platform_device tuna_wifi_device = {
