@@ -29,11 +29,13 @@
 
 #define VS_PRODUCT_NAME	"OMAP4"
 
-/* Self-reminder: this does nothing when changed or commented
+/*
+ * Self-reminder that this defines are useless unless SGX_DYNAMIC_TIMING_INFO is removed from PVR Makefile
+
 #if defined(SGX540) && (SGX_CORE_REV == 120)
 #ifdef CONFIG_OMAP4_512_GPU
 #define SYS_SGX_CLOCK_SPEED		512000000
-#else
+#elif !defined(CONFIG_OMAP4_512_GPU)
 #define SYS_SGX_CLOCK_SPEED		384000000
 #endif
 #else
