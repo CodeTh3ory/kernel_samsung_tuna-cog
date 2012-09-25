@@ -29,6 +29,7 @@
 
 #define VS_PRODUCT_NAME	"OMAP4"
 
+/* Self-reminder: this does nothing when changed or commented
 #if defined(SGX540) && (SGX_CORE_REV == 120)
 #ifdef CONFIG_OMAP4_512_GPU
 #define SYS_SGX_CLOCK_SPEED		512000000
@@ -38,6 +39,7 @@
 #else
 #define SYS_SGX_CLOCK_SPEED		384000000
 #endif
+*/
 
 #define SYS_SGX_HWRECOVERY_TIMEOUT_FREQ		(100)	
 #define SYS_SGX_PDS_TIMER_FREQ				(1000)	
