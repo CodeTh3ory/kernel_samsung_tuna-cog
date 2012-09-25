@@ -326,7 +326,7 @@ static int __cpuinit omap_cpu_init(struct cpufreq_policy *policy)
 		goto fail_ck;
 	}
 
-	policy->cur = policy->min = policy->max = omap_getspeed(policy->cpu);
+	//policy->cur = policy->min = policy->max = omap_getspeed(policy->cpu);
 
 	if (atomic_inc_return(&freq_table_users) == 1)
 		result = opp_init_cpufreq_table(mpu_dev, &freq_table);
@@ -345,7 +345,7 @@ static int __cpuinit omap_cpu_init(struct cpufreq_policy *policy)
 
 	policy->min = 384000;
 	policy->max = 1228000;
-	policy->cur = omap_getspeed(policy->cpu);
+	//policy->cur = omap_getspeed(policy->cpu);
 
 	for (i = 0; freq_table[i].frequency != CPUFREQ_TABLE_END; i++)
 		max_freq = max(freq_table[i].frequency, max_freq);
