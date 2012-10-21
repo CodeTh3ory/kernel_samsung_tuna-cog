@@ -919,6 +919,13 @@ void soundcontrol_updatevolume(unsigned int volumeboost)
 {
     struct twl6040_output * out = &snd_data->headset;
     struct delayed_work * work = &snd_data->hs_delayed_work;
+	u8 reg_l, val_l, reg_r, val_r;
+	
+	reg_l = twl6040_read_reg_cache(snd_codec, TWL6040_REG_HSGAIN);
+	val_l = (~reg_l & TWL6040_HSL_VOL_MASK);
+	
+	reg_r = twl6040_read_reg_cache(snd_codec, TWL6040_REG_HSGAIN);
+	val_r = (~reg_r & TWL6040_HSR_VOL_MASK) >> TWL6040_HSR_VOL_SHIFT;
 
     if (out->active && !delayed_work_pending(work)) {
 	if (volumeboost > volume_boost)
@@ -930,10 +937,21 @@ void soundcontrol_updatevolume(unsigned int volumeboost)
 
 	out->left_step = out->left_vol + volume_boost;
 	out->right_step = out->right_vol + volume_boost;
+	
+	val_l = out->left_vol + volume_boost;
+	val_r = out->right_vol + volume_boost;
+	
+	reg_l &= ~TWL6040_HSL_VOL_MASK;
+	twl6040_write(snd_codec, TWL6040_REG_HSGAIN,
+		(reg_l | (~val_l & TWL6040_HSL_VOL_MASK)));
+		
+	reg_r &= ~TWL6040_HSR_VOL_MASK;
+	twl6040_write(snd_codec, TWL6040_REG_HSGAIN,
+		(reg_r | (~val_r << TWL6040_HSR_VOL_SHIFT)));
 
-	queue_delayed_work(snd_data->hs_workqueue, work, msecs_to_jiffies(1));
+	queue_delayed_work(snd_data->hs_workqueue, work, msecs_to_jiffies(10));
     } else {
-	volume_boost = volumeboost;
+		volume_boost = volumeboost;
     }
 
     return;
@@ -1916,7 +1934,9 @@ static int twl6040_probe(struct snd_soc_codec *codec)
 #ifdef CONFIG_SOUND_CONTROL
 	snd_data = priv;
 	snd_codec = codec;
-
+	
+	soundcontrol_updateperf(true);
+	
 	if (headset_plugged) {
 	    headset_power_mode(codec, priv->headset_mode);
 	}

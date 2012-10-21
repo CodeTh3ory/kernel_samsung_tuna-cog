@@ -14,15 +14,16 @@
 
 #define SOUNDCONTROL_VERSION 1
 
-static bool high_perf_mode = false;
+//static bool high_perf_mode = true;
 
 static unsigned int volume_boost = 0;
 
 #define MAX_VOLUMEBOOST 3
 
 extern void soundcontrol_updatevolume(unsigned int volumeboost);
-extern void soundcontrol_updateperf(bool highperf_enabled);
+//extern void soundcontrol_updateperf(bool highperf_enabled);
 
+/*
 static ssize_t soundcontrol_highperf_read(struct device * dev, struct device_attribute * attr, char * buf)
 {
     return sprintf(buf, "%u\n", (high_perf_mode ? 1 : 0));
@@ -68,6 +69,7 @@ static ssize_t soundcontrol_highperf_write(struct device * dev, struct device_at
 
     return size;
 }
+*/
 
 static ssize_t soundcontrol_volumeboost_read(struct device * dev, struct device_attribute * attr, char * buf)
 {
@@ -108,13 +110,11 @@ static ssize_t soundcontrol_version(struct device * dev, struct device_attribute
     return sprintf(buf, "%u\n", SOUNDCONTROL_VERSION);
 }
 
-static DEVICE_ATTR(highperf_enabled, S_IRUGO | S_IWUGO, soundcontrol_highperf_read, soundcontrol_highperf_write);
 static DEVICE_ATTR(volume_boost, S_IRUGO | S_IWUGO, soundcontrol_volumeboost_read, soundcontrol_volumeboost_write);
 static DEVICE_ATTR(version, S_IRUGO , soundcontrol_version, NULL);
 
 static struct attribute *soundcontrol_notification_attributes[] = 
     {
-	&dev_attr_highperf_enabled.attr,
 	&dev_attr_volume_boost.attr,
 	&dev_attr_version.attr,
 	NULL
