@@ -1935,10 +1935,10 @@ static int twl6040_probe(struct snd_soc_codec *codec)
 	snd_data = priv;
 	snd_codec = codec;
 	
-	soundcontrol_updateperf(true);
+	//soundcontrol_updateperf(true);
 	
 	if (headset_plugged) {
-	    headset_power_mode(codec, priv->headset_mode);
+	    headset_power_mode(codec, 1);
 	}
 #endif
 
